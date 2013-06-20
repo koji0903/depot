@@ -1,0 +1,9 @@
+jp:
+  layouts:
+    application:
+      title:     "HONYA"
+      home:       "home"
+      questions:  "sitsumon"
+      news:       "nyu-su"
+      contact:    "otoiawase"
+
