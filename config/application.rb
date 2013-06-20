@@ -66,5 +66,18 @@ module Depot
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+
+    # Mailer Setting
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:         "smtp.gmail.com",
+      port:            587,
+      domain:          "sample.net",
+      authentication:  "plain",
+      user_name:       "koji0903",
+      password:        "secret",
+      enable_starttls_auto: true
+    }
   end
 end
