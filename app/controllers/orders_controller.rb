@@ -1,9 +1,18 @@
+#---
+# Excerpted from "Agile Web Development with Rails",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material, 
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose. 
+# Visit http://www.pragmaticprogrammer.com/titles/rails4 for more book information.
+#---
 class OrdersController < ApplicationController
+    skip_before_filter :authorize, only: [:new, :create]
   # GET /orders
   # GET /orders.json
   def index
-#    @orders = Order.all
-    @orders = Order.paginate :page=>params[:page], :order=>'created_at desc', :per_page=>10
+    @orders = Order.paginate page: params[:page], order: 'created_at desc',
+      per_page: 10
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +36,7 @@ class OrdersController < ApplicationController
   def new
     @cart = current_cart
     if @cart.line_items.empty?
-      redirect_to store_url, notice: "Cart is empty"
+      redirect_to store_url, notice: "Your cart is empty"
       return
     end
 
@@ -62,7 +71,8 @@ class OrdersController < ApplicationController
       else
         @cart = current_cart
         format.html { render action: "new" }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.json { render json: @order.errors,
+          status: :unprocessable_entity }
       end
     end
   end

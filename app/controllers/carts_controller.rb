@@ -7,6 +7,8 @@
 # Visit http://www.pragmaticprogrammer.com/titles/rails4 for more book information.
 #---
 class CartsController < ApplicationController
+    skip_before_filter :authorize, only: [:create, :update, :destroy]
+
   # GET /carts
   # GET /carts.json
   def index
@@ -87,11 +89,11 @@ class CartsController < ApplicationController
   def destroy
     @cart = current_cart
     @cart.destroy
-    session[:curt_id] = nil
-    
+    session[:cart_id] = nil
+
     respond_to do |format|
       format.html { redirect_to store_url }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end
